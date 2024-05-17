@@ -75,6 +75,24 @@
     <hr>
 
     <h2>img tag</h2>
+    <!-- 
+        Relative path (상대경로) 
+        - Regardless of location of the project
+        - but if the location of the image is altered, the path has to be modified
+
+        Absolute path (절대경로)
+        - can access anywhere (in local environment, nut not in other local environment)
+        - Live Server (X), 127.0.0.1: Local Device = localhost
+    -->
     <img src="./img/google.png" alt="Google logo" width="400">
+    <img src="file:/Users/sba/Documents/github/sesac-archive/02_html/img/google.png" alt="Google logo" width="400">
+    <br>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/625px-Apple_logo_black.svg.png" alt="Apple logo" width="200">
+
+    <hr>
+
+    <a href="https://google.com" target="_blank" title="Google">Google</a> <br>
+    <a href="./html-start.html" target="_blank">Other HTML file</a>
+
 </body>
 </html>

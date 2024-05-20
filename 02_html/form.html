@@ -7,6 +7,91 @@
 </head>
 <body>
     <h1>Let's learn about form!</h1>
-    
+
+    <!-- form tag 
+        * action 속성: 사용자가 폼에 입력한 값을 전달할 주소
+        * method 속성: 사용자가 폼에 입력한 값을 전달할 방법
+
+        - literally 'form'. its an abstract tag that does not appear on th screen
+    -->
+
+    <form>
+        <!-- form element 
+            * input, textarea, select, ... these tags can have name attribute (related with back-end)
+        -->
+
+        <!-- input tag 
+            * disabled, placeholder
+        -->
+        Text1 <input type="text"> <br>
+        Text2 <input type="text" disabled> <br>
+
+        <!-- emmet: input:email + tab -->
+        <!-- label : 
+            * 웹 접근성 향상 
+            * label의 for와 input의 id 속성값을 일치 
+        -->
+        <label for="user-email">E-mail</label>
+        <input type="email" name="" id="user-email" placeholder="abc@gmail.com"> <br>
+        <input type="color" name="" id=""> <br>
+        <input type="range" name="" id=""> <br>
+        <input type="file" name="" id=""> <br>
+        <input type="number" name="" id=""> <br>
+        <input type="date" name="" id=""> <br>
+        <input type="datetime-local" name="" id=""> <br>
+        <input type="password" name="" id=""> <br>
+
+        <!-- radio input - checkbox input -->
+        <h5>Your Hobbies</h5>
+        <input type="checkbox" name="interest" id="" value="book">Book
+        <input type="checkbox" name="interest" id="" value="cinema" checked>Cinema
+        <input type="checkbox" name="interest" id="" value="sleep">Sleep
+
+        <h5>Your Gender</h5>
+        <input type="radio" name="gender" value="female" id="female"><label for="female">Female</label>
+        <input type="radio" name="gender" valeu="Male" id="male"><label for="male">Male</label>
+
+        <!-- textarea tag
+            * can get longer texts than input
+            * cols, rows: size
+            * or the user can adjust the size manually
+        -->
+        <br> <textarea name="" id="" placeholder="Enter Text" cols="30" rows="20"></textarea> <br>
+
+        <!-- select tag 
+            * 옵션 메뉴를 제공하는 드롭다운 리스트
+        -->
+        <select name="flowers" id="">
+            <optgroup label="red-flower">
+                <option value="rose">rose</option>
+                <option value="tulip" selected>tulip</option>
+                <option value="dandelion">dandelion</option>
+            </optgroup>
+            <optgroup label="white-flower">
+                <option value="sakura">sakura</option>
+                <option value="buckwheat">buckwheat</option>
+            </optgroup>
+        </select> <br>
+
+        <!-- button 
+            1. input type="button"
+            2. button tag
+        -->
+        <!-- 1. Simple button -->
+        <input type="button" value="Simple button1">
+        <button type="button">Simple button2</button> <br>
+
+        <!-- 2. Submit button : submits 'form' -->
+        <input type="submit" value="Submit button1">
+        <button type="submit">Submit button2</button> <br>
+
+        <!-- cf: button tag without type attr. 
+            - type 속성: button, submit 값 사용 가능
+            - button type: 폼 태그 바깥에 button tag가 있을 때 기본 값
+            - submit tyep: 폼 태그 내부에 button tag가 있을 때 기본 값
+        -->
+         <button>button1</button>
+    </form>
+    <button>button2</button>
 </body>
 </html>

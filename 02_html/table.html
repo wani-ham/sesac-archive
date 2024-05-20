@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Tag</title>
+</head>
+<body>
+    <h1>Let's learn about Table!</h1>
+    <table border="10" width="150" height="150" bgcolor="khaki">
+        <caption>My First Table</caption>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>            
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+        </tr>
+    </table> <br>
+
+    <!-- cellspacing, cellpadding
+        * cellspacing: Defines the size of the space between two cells.
+        * cellpadding:  Defines the space between the content of a cell and its border.
+    -->
+    <table border="10" cellpadding="10" cellspacing="5" align="center">
+        <caption>Menu</caption>
+        <tr>
+            <!-- th tag : title cells of the table > bold(default) -->
+            <th>Food</th>
+            <th>Price</th>
+            <th>-</th>
+        </tr>
+        <tr>
+            <td>Soup</td>
+            <td>5000</td>
+            <td>More than 2 people</td>
+        </tr>
+        <tr>
+            <td>Chicken</td>
+            <td>6500</td>
+            <td>x</td>
+        </tr>
+        <tr>
+            <td>Bibimbap</td>
+            <td>10000</td>
+            <td>Best Menu</td>
+        </tr>
+    </table> <br>
+
+    <table border="1" cellspacing="0" cellpadding="10">
+        <caption>Menu</caption>
+        <tr>
+            <th>메뉴</th>
+            <th>가격</th>
+            <th>비고</th>
+        </tr>
+        <tr>
+            <td>국물떡볶이</td>
+            <td>5000</td>
+            <td>2인 이상 주문가능</td>
+        </tr>
+        <tr>
+            <!-- rowspan -->
+            <td>참치김밥</td>
+            <td rowspan="2">4000</td>
+            <td>x</td>
+        </tr>
+        <tr>
+            <td>치즈김밥</td>
+            <td>신메뉴</td>
+        </tr>
+        <tr>
+            <!-- colspan -->
+            <td colspan="3">순대(품절)</td>            
+        </tr>
+    </table>
+</body>
+</html>

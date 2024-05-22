@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selector</title>
+    <link rel="stylesheet" href="./index2.css">
+</head>
+<body>
+    <h1>Basic Selector</h1>
+    <p>Basic Selector 2</p>
+    <span>Basic Selector 3</span>
+    <ol>
+        <li id="first">1</li>
+        <li class="second">2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ol>
+
+    <ul>
+        <li class="small">rat</li>
+        <li class="big">horse</li>
+        <li class="small">chicken</li>
+        <li class="small">dog</li>
+        <li class="big">dragon</li>
+    </ul>
+
+    <!-- 
+        > Class, id 의 올바른 사용법
+        1. 한 요소에 여러 class 사용가능, 공백으로 구분
+        2. 한 요소에 하나의 ID를 사용
+        3. 한 요소가 여러 클래스와 하나의 아이디를 사용 가능
+        4. 한 요소가 여러 ID를 사용 불가
+     -->
+     <p class="hello hi bonjour">Hello World 1</p>
+     <p id="my-hello">Hello World 2</p>
+     <p class="hello" id="my-hello">Hello World 3</p>
+     <p id="one two">Hello World 4</p>
+</body>
+</html>

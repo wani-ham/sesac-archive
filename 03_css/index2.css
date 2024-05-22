@@ -1,0 +1,57 @@
+/* Comment */
+
+/* 전체 선택자 */
+* {
+    color: red;
+}
+
+/* 태그 선택자 */
+h1 {
+    background-color: aquamarine;
+}
+
+p {
+    background-color: yellowgreen;
+}
+
+/* Class 선택자 */
+.second {
+    background-color: blue;
+}
+
+.small  {
+    font-size: 20px;
+}
+
+.big {
+    font-size: 35px;
+}
+
+/* ID 선택자 */
+#first {
+    background-color: lightblue;
+}
+
+
+/* 
+    > class vs id
+        * class: group
+        * id: unique
+*/
+
+.hello {
+    color: white;
+}
+
+.hi {
+    color: blue;
+}
+
+#my-hello {
+    color: black;
+}
+
+
+#one {
+    color: aqua;
+}

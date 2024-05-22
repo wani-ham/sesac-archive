@@ -1,0 +1,24 @@
+/* Web font */
+/* 
+    * Google Web font, 눈누
+    https://fonts.google.com/
+    https://noonnu.cc/
+    * 모든 브라우저에 쓰이는 폰트를 통일
+    * 보통 기본 폰트는 body에 쓴다
+*/
+
+@font-face {
+    font-family: 'Ownglyph_ryurue-Rg';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_ryurue-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: "Fira Sans", sans-serif;
+    /* font-family: 'Ownglyph_ryurue-Rg'; */
+}
+
+div {
+    font-family: 'Ownglyph_ryurue-Rg';
+}

@@ -1,0 +1,43 @@
+/* 하위 후손 선택자 " "*/
+body section {
+    border: 3px solid blue;
+    padding: 10px;
+}
+
+body section h2 {
+    border: 1px solid red;
+}
+
+/* 자식 선택자 ">" */
+.first > h2 {
+    color: white;
+    background-color: navy;;
+}
+
+.second > h2 {
+    color: navy;
+    background-color: whitesmoke;
+}
+
+/* 인접 형제 선택자 "+" */
+/* lion이라는 id를 갖는 element 바로 옆에 li tag가 있어야 됨 */
+#lion + li {
+    background-color: aqua;
+}
+
+/* 일반 형제 선택자 (~) */
+#lion ~ li {
+    color: rgb(25, 129, 25);
+}
+
+/* 
+    > CSS 색상 
+        1. color keyword: red, navy, aqua ...
+        2. 16진수 code: #000000(black) #ffffff(white)
+        3. RGB: rgb(255,29,200)
+*/
+
+
+
+
+

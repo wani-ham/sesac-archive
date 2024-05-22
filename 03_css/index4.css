@@ -39,3 +39,36 @@ input:focus {
 .links > a:visited {
     color: red;
 }
+
+/* 
+    > 요소 상황에 따른 가상 클래스 선택자
+         :first-child
+         :last-child
+         :nth-child(n)
+         :not(XYZ)
+*/
+
+.zoo > * {
+    background-color: green;
+    color: white;
+}
+
+.zoo > *:first-child {
+    background-color: red;
+}
+
+.zoo > li:last-child {
+    background-color: blue;
+}
+
+.zoo > *:nth-child(4) {
+    background-color: aquamarine;
+}
+
+.zoo > li:not(div) {
+    font-style: italic;
+}
+
+
+
+

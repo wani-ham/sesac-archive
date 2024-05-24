@@ -1,0 +1,33 @@
+.d-inline1 {
+    display: inline;
+    background-color: antiquewhite;
+}
+
+.d-inline2 {
+    display: inline;
+    background-color: palegoldenrod;
+}
+
+.d-block1 {
+    display: block;
+    background-color: antiquewhite;
+}
+
+.d-block2 {
+    display: block;
+    background-color: palegoldenrod;
+}
+
+.d-inline-block1 {
+    display: inline-block;
+    background-color: antiquewhite;
+    height: 100px;
+    margin: 30px;
+}
+
+.d-inline-block2 {
+    display: inline-block;
+    background-color: palegoldenrod;
+    width: 150px;
+    padding: 10px;
+}

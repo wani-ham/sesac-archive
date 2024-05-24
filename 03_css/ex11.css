@@ -7,14 +7,27 @@ div {
     height: 100px;
     background-color: olive;
     border: 1px solid white;
-    transition: 1s .5s
+    transition: 1s .5s;
 }
 
 .first:hover {
-    transform: scaleX(-3);
+    transform-origin: left;
+    transform: scaleX(3);
 }
 
 .second:hover {
+    transform-origin: bottom;
     transform: skewX(-30deg);
+    background-color: rgb(56, 95, 56);
+}
+
+.third:hover {
+    transform: translateX(800px);
+    border-radius: 50%;
+    background-color: rgb(56, 95, 56);
+}
+
+.fourth:hover {
+    transform: scale(2, 2)  rotateX(500deg);
     background-color: rgb(56, 95, 56);
 }

@@ -1,0 +1,81 @@
+body {
+    background-color: whitesmoke;
+}
+
+div:not(.total .grass) {
+    border-radius: 50%;
+}
+
+.total {
+    position: relative;
+    top: 600px;
+    left: 400px;
+    width: 400px;
+    height: 600px;
+}
+
+.big-circle {
+    width: 120px;
+    height: 120px;
+}
+
+.head {
+    background-color: blue;
+    position: relative;
+}
+
+.eye {
+    background-color: whitesmoke;
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: 40px;
+    left: 10px;
+}
+
+.pupil {
+    background-color: black;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 10px;
+}
+
+.body1 {
+    background-color: rgba(0, 0, 255, 0.645);
+    position: absolute;
+    top: 80px;
+    left: 70px;
+}
+
+.body2 {
+    background-color: rgba(0, 0, 255, 0.645);
+    position: absolute;
+    top: 60px;
+    left: 80px;
+}
+
+.body3 {
+    background-color: rgba(0, 0, 255, 0.645);
+    position: absolute;
+    top: 90px;
+    left: 50px;
+}
+
+.body4 {
+    background-color: rgba(0, 0, 255, 0.645);
+    position: absolute;
+    top: 90px;
+    left: 40px;
+}
+
+.grass {
+    height: 1500px;
+    width: 3000px;
+    background-image: url(./img/grass.jpeg);
+    position: fixed;
+    top: 750px;
+    left: 0px;
+    z-index: -1;
+}
+

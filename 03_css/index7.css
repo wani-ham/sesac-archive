@@ -1,0 +1,61 @@
+body {
+
+}
+
+div {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+/* 
+    static: default
+        - inline element: left -> right
+        - block element: top -> bottom
+*/
+.position-static {
+    background-color: antiquewhite;
+    position: static;
+}
+
+/* 
+    relative
+        - 일반적인 흐름에 따라 배치, top/bottom/left/right 중 하나 이상을 작성
+        - 원래 있어야 하는 위치 기준으로 t/b/l/r 방향으로 이동
+        - 위치(배치)가 바뀌어도 원래 기존 자리가 유지된다.
+        - 일반적으로 부모 요소로 많이 사용. 
+*/
+.position-relative {
+    background-color: palegreen;
+    position: relative;
+    left: 100px;
+}
+
+/* 
+    absolute
+        - position 속성을 갖는 제일 가까운 조상을 기준.
+            만약 없다면 body를 기준.
+        - 특정 요소를 기준으로 t/b/l/r 씩 움직임.
+        -위치(배치)가 바뀌면 기존 자리가 없어짐.
+*/
+.position-absolute {
+    background-color: palevioletred;
+    position: absolute;
+    left: 100px;
+}
+
+/* 
+    fixed
+        - viewport 기준으로 특정 위치 배치
+        - 스크롤이 되어도 움직이지 않음
+        - header, footer에 많이 사용됨.
+*/
+.position-fixed {
+    background-color: paleturquoise;
+    position: fixed;
+    top: 0;
+    right: 0;
+}

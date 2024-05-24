@@ -1,0 +1,57 @@
+.pic {
+    width: 700px;
+    height: 700px;
+    background-color: palevioletred;
+    position: absolute;
+    left: 50px;
+}
+
+img {
+    /* 
+        크기의 단위로 %를 사용
+        : 부모 요소의 n% 차지
+    */
+
+    width: 100%;
+    height: 100%;
+}
+
+img:hover {
+    /* 
+        transform 속성
+        - 요소의 모양 크기 위치 등을 변경하는 데 사용
+    */
+
+    /* 1. skew */
+    /* 
+        skewX(x_deg)
+        skewY(y_deg)
+        skew(x_deg, y_deg)
+    */
+    /* transform: skewX(30deg); */
+    /* transform: skewY(-30deg); */
+    /* transform: skew(5deg, 3deg); */
+
+    /* 2. scale */
+    /* 1 보다 크면 확대 */
+    /* transform: scaleX(1.3); */
+    /* transform: scale(0.5, 0.9); */
+
+    /* 3. rotate */
+    /* transform: rotateZ(30deg); */
+    /* transform: rotateY(30deg); */
+    /* transform: rotateX(20deg); */
+
+    /* 4. translate */
+    /* transform: translateX(20px); */
+    /* transform: translateY(40px); */
+    
+    /* 5. transition */
+    /* css의 요소의 속성값이 변화할 때 일정 시간동안 부드럽게 변화가 일어나도록 설정 */
+    /* transform 속성과 함께 자주 쓰임 */
+    
+    transform: scale(1.3);
+    transition: transform 1s;
+    
+
+}

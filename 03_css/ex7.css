@@ -1,0 +1,32 @@
+.container {
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    background-color: palevioletred;
+}
+
+.container > * {
+    width: 50px;
+    height: 50px;
+}
+
+.item1 {
+    position: relative;
+    left: 50px;
+    top: 30px;
+    background-color: palegoldenrod;
+}
+
+.item2 {
+    position: absolute;
+    right: 30px;
+    bottom: 100px;
+    background-color: palegreen;
+}
+
+.item3 {
+    position: fixed;
+    right: 100px;
+    top: 100px;
+    background-color: paleturquoise;
+}

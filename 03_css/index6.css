@@ -79,7 +79,6 @@ div {
     /* margin: Apx Bpx ==> 상하 Apx, 좌우 Bpx */
     /* margin: Apx Bpx Cpx ==> 상 Apx, 좌우 Bpx, 하 Cpx */
     /* margin: Apx Bpx Cpx Dpx ==> 상 Apx, 우 Bpx 하 Cpx, 좌 Dpx */
-
 }
 
 /* 배경 이미지 속성 */
@@ -102,7 +101,7 @@ div {
 
     /* background-attachment: */
     /* scroll, fixed, local */
-    
+
 }
 
 br ~ div {

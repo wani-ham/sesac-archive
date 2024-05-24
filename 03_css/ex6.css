@@ -1,0 +1,14 @@
+.backgroundI {
+    height: 250px;
+    width: 750px;
+    padding: 1px;
+    /* outline: 20px solid red; */
+    background-color: antiquewhite;
+    background-image: url(./img/google.png);
+    background-position: center;
+    background-size: 40em;
+    /* background-size: cover; */
+    background-repeat: no-repeat;
+    border: 20px solid olive;
+    border-radius: 1500px;
+}

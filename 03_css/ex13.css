@@ -47,18 +47,26 @@
     margin-left: 20px;
   }
   
-  /* header2 */
   .header2 {
     display: flex;
     align-items: center;
   }
 
   .header2 > .menus {
-    
+    flex-grow: 1;
     justify-content: space-between;
   }
   
-  /* header3 */
   .header3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  
+
+  .header3 > ul {
+    display: flex;
+  }
+
+  .header3 li {
+    margin-left: 20px;
+  }

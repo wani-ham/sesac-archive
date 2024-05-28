@@ -3,7 +3,7 @@
 */
 
 body {
-    background-color: rgb(218, 206, 206);
+    background-color: rgb(218, 206, 206);    
 }
 
 .left {
@@ -14,12 +14,16 @@ body {
 
 .blank {
     height: 10vh;
+    animation: smooth-move 10s;
+    animation-iteration-count: infinite;
+    background-color: palegreen;
 }
 
 .right {
     animation: text-swipe-right 10s;
     animation-iteration-count: infinite;
     width: 100%;
+    ;
 }
 
 @keyframes text-swipe-left {
@@ -32,7 +36,17 @@ body {
         margin-left: 0px;
         width: 50%;
         color: palevioletred;
-        font-weight: 1000; 
+        font-weight: 900; 
+    }
+}
+
+@keyframes smooth-move {
+    from {
+        transform: translateY(0px);
+    }    
+
+    to {
+        transform: translateY(400px);
     }
 }
 

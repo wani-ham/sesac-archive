@@ -1,0 +1,49 @@
+/* 
+    첫번째 lorem의 줄바꿈으로 인해 부드럽지 않은 두번재 div의 animation?
+*/
+
+body {
+    background-color: rgb(218, 206, 206);
+}
+
+.left {
+    animation: text-swipe-left 10s;
+    animation-iteration-count: infinite;
+    width: 100%;
+}
+
+.blank {
+    height: 10vh;
+}
+
+.right {
+    animation: text-swipe-right 10s;
+    animation-iteration-count: infinite;
+    width: 100%;
+}
+
+@keyframes text-swipe-left {
+    from {
+        margin-left: 100%;
+        width: 300%;
+    }
+
+    to {
+        margin-left: 0px;
+        width: 50%;
+        color: palevioletred;
+        font-weight: 1000; 
+    }
+}
+
+@keyframes text-swipe-right {
+    from {
+        margin-right: 100%;
+        width: 100%;
+    }
+
+    to {
+        margin-right: 0%;
+        width: 100%;
+    }
+}

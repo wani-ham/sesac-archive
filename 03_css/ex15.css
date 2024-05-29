@@ -22,9 +22,8 @@ body {
 }
 
 .right {
-    animation: text-swipe-right 10s;
+    animation: 10s linear 0.5s text-swipe-right;
     animation-iteration-count: infinite;
-    width: 100%;
     font-size: 100px;
 }
 
@@ -58,12 +57,12 @@ body {
 
 @keyframes text-swipe-right {
     from {
-        margin-right: 100%;
+        transform: translateX(100%);
         width: 100%;
     }
 
     to {
-        margin-right: -100%;
+        transform: translateX(-100%);
         width: 100%;
     }
 }

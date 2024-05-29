@@ -3,7 +3,7 @@
 */
 
 body {
-    background-color: rgb(218, 206, 206);    
+    background-color: rgb(224, 224, 224);    
 }
 
 .left {
@@ -13,8 +13,10 @@ body {
 }
 
 .blank {
-    height: 10vh;
-    animation: smooth-move 10s;
+    position: fixed;
+    /* height: 10vh; */
+    width: 100%;
+    animation: 10s ease-out 0.5s smooth-move;
     animation-iteration-count: infinite;
     background-color: palegreen;
 }
@@ -23,7 +25,7 @@ body {
     animation: text-swipe-right 10s;
     animation-iteration-count: infinite;
     width: 100%;
-    ;
+    font-size: 100px;
 }
 
 @keyframes text-swipe-left {
@@ -41,12 +43,16 @@ body {
 }
 
 @keyframes smooth-move {
-    from {
-        transform: translateY(0px);
-    }    
+    0% {
+        top: 0px;
+    }
+    
+    30% {
+        top: 100px;
+    }
 
-    to {
-        transform: translateY(400px);
+    100% {
+        top: 300px;
     }
 }
 
@@ -57,7 +63,7 @@ body {
     }
 
     to {
-        margin-right: 0%;
+        margin-right: -100%;
         width: 100%;
     }
 }

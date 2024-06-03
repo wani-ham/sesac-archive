@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS DOM</title>
+    <style>
+        div {
+            height: 100px;
+            border-radius: 10px;
+            border: 1px solid black;
+            margin: 10px;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        .pink {
+            background-color: palevioletred;
+        }
+
+        #green {
+            background-color: palegreen;
+        }
+
+        #red {
+            background-color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>JS DOM</h1>
+    <script defer src="./index3.js"></script>
+    <!-- defer: 페이지가 로드된 후에 외부 스크립트 실행 -->
+    <div class="pink">1</div>
+    <div class="pink">2</div>
+    <div class="others" id="green">3</div>
+    <div class="others" id="red">4</div>
+
+    <input type="text" name="id">
+    <input type="button" name="id" value="click">
+</body>
+</html>

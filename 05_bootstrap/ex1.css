@@ -1,0 +1,23 @@
+.box {
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
+    margin-right: 10px;
+    border: solid 3px red;
+}
+
+@media screen and (min-width: 700px) {
+     .box {
+        background-color: black;
+     }
+}
+
+@media screen and (max-width: 700px) {
+    body {
+        display: flex;
+    }
+
+    .box {
+        background-color: skyblue;
+    }
+}

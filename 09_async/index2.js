@@ -126,42 +126,51 @@
     // })
     
 // 2. Using Promise Chainging
-// function add(n1, n2) {
-//     return new Promise(function (resolve, reject) {
-//         setTimeout(function () {
-//             const result = n1 + n2;
-//             resolve(result);
-//         }, 1000);
-//     })
-// }
+function add(n1, n2) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            const result = n1 + n2; // 7
+            resolve(result); // resolve(7)
+        }, 1000);
+    })
+}
 
-// function mul(n) {
-//     return new Promise(function (resolve, reject) {
-//         setTimeout(function () {
-//             const result = n * 2;
-//             resolve(result);
-//         }, 700);
-//     })
-// }
+function mul(n) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            const result = n * 2; // 14
+            resolve(result); // resolve(14)
+            // reject(new Error('의도적으로 발생시킨 에러입니다!'));
+        }, 700);
+    })
+}
 
-// function sub(n) {
-//     return new Promise(function (resolve, reject) {
-//         setTimeout(function () {
-//             const result = n - 1;
-//             resolve(result);
-//         }, 500);
-//     })
-// }
+function sub(n) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            const result = n - 1; // 13
+            // resolve(result); // resolve(13)
+            reject(new Error('의도적으로 발생시킨 에러입니다!'));
+        }, 500);
+    })
+}
 
-// add(4, 3)
-//     .then((result) => {
-//         return mul(result);
-//     })
-//     .then((result) => {
-//         return sub(result);
-//     })
-//     .then((result) => {
-//         console.log(result);
-//     })
+add(4, 3)
+    .then(function (result) {  // 7
+        console.log(result); // 7
+
+        return mul(result); // return mul(7)
+    })
+    .then(function (result) { // 14
+        console.log(result); // 14
+
+        return sub(result); // return sub(14)
+    })
+    .then(function (result) { // 13
+        console.log(result); // 13
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
 
 

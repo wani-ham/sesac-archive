@@ -17,13 +17,13 @@ app.get('/', (req, res) => {
 
 app.get('/getForm', (req, res) => {
     console.log(req.query);  // result: { id: ' ', pw: ' ' }
-    res.send('get request!!');
+    res.render('result', {title: 'GET Result', userInfo: req.query});
 })
 
 app.post('/postForm', (req, res) => {
     console.log(req.body);  // result: { id: ' ', pw: ' ' }
     // => (body-parser 미들웨어가 없을 때 result: undefined)
-    res.send('post request!!');
+    res.render('result', {title: 'POST Result', userInfo: req.body});
 })
 
 // res.send() 와 res.render()의 차이
@@ -35,5 +35,6 @@ app.post('/postForm', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running: http://localhost:${PORT}`);
 })
+
 
 

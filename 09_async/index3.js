@@ -37,33 +37,81 @@
 // - await 뒤에는 프로미스가 오게 됨
 // - **async 키워드를 사용한 함수 안에서만 await를 사용 가능
 
-// async/await는 세트다!!!!!!!!!!!!!!!!!!!
+// async/await는 세트다!
 
-function fetchFruits() {
-    return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-            const fruits = ['🥝', '🍇', '🍋'];
-            // resolve(fruits);
-            reject(new Error("ERRRRORORRORO"));
-        }, 100);
-    });
+// function fetchFruits() {
+//     return new Promise(function (resolve, reject) {
+//         setTimeout(function () {
+//             const fruits = ['🥝', '🍇', '🍋'];
+//             // resolve(fruits);
+//             reject(new Error("ERRRRORORRORO"));
+//         }, 100);
+//     });
+// }
+
+// fetchFruits()
+//     .then((f) => {
+//         console.log(f);
+//     })
+//     .catch((err) => {
+//         console.log("Error occured - promise chain");
+//     })
+
+// async function printItem() {
+//     try {
+//         const fruits = await fetchFruits();
+//         console.log(fruits);
+//     } catch(err) {
+//         console.log("Error occured - async/await");
+//     }
+// }
+
+// printItem();
+
+function goMart() {
+    console.log("What drink should I buy at the mart!");
 }
 
-fetchFruits()
-    .then((f) => {
-        console.log(f);
+function pickDrink(callback) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("Aha!");
+            product = "Diet Coke";
+            price = 2000;
+            // resolve();
+            if (price <= 3000) {
+                resolve();
+            } else {
+                reject();
+            }
+        }, 500);
     })
-    .catch((err) => {
-        console.log("Error occured - promise chain");
-    })
+}
 
-async function printItem() {
+function pay(product, price) {
+    console.log(`Name: ${product}, Price: ${price}`);
+}
+
+function noPay() {
+    console.log("Not enough money");
+}
+
+let product;
+let price;
+// goMart();
+// pickDrink()
+//     .then(() => {pay(product, price)})  // prevent asynchrounous by using promise
+//     .catch(noPay);
+
+const exec = async () => {
+    // async/await를 쓰면 가독성이 매우 좋아짐
+    goMart();
+    await pickDrink();
     try {
-        const fruits = await fetchFruits();
-        console.log(fruits);
+        pay(product, price);
     } catch(err) {
-        console.log("Error occured - async/await");
+        noPay();
     }
 }
+exec();
 
-printItem();

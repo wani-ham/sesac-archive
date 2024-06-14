@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1><%= title %></h1>   
+
+    <h2>1. GET</h2>
+    <form action="/getForm" method="get">
+        <input type="text" name="id" placeholder="ID">
+        <input type="password" name="pw" placeholder="PW">
+        <button type="submit">Login (GET)</button>
+    </form>
+
+    <h2>2. POST</h2>
+    <form action="/postForm" method="post">
+        <input type="text" name="id" placeholder="ID">
+        <input type="password" name="pw" placeholder="PW">
+        <button type="submit">Login (POST)</button>
+    </form>
+</body>
+</html>

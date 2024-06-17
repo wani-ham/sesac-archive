@@ -20,6 +20,22 @@ app.post('/ajax', (req, res) => {
     res.send(req.body);
 })
 
+app.get('/axios', (req, res) => {
+    res.send(req.query);
+})
+
+app.post('/axios', (req, res) => {
+    res.send(req.body);
+})
+
+app.get('/fetch', (req, res) => {
+    res.send(req.query);
+})
+
+app.post('/fetch', (req, res) => {
+    res.send(req.body);
+})
+
 app.listen(PORT, ()=>{
     console.log(`Server running in port: ${PORT}`);
 })

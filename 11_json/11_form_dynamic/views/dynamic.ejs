@@ -7,6 +7,10 @@
 
     <!-- JQuery CDN (pour ajax) -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- AXIOS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
     <h1>Dynamic Form</h1>
@@ -23,7 +27,11 @@
         <br>
 
         <button type="button" onclick="ajaxGet();">AJAX Get Request</button>
-        <button type="button" onclick="ajaxPost();">AJAX Post Request</button>
+        <button type="button" onclick="ajaxPost();">AJAX Post Request</button> <br><br>
+        <button type="button" onclick="axiosGet();">Axios Get Request</button>
+        <button type="button" onclick="axiosPost();">Axios Post Request</button> <br><br>
+        <button type="button" onclick="fetchGet();">Fetch Get Request</button>
+        <button type="button" onclick="fetchPost();">Fetch Post Request</button> <br>
         
     </form>
 
@@ -75,6 +83,99 @@
                     resultBox.style.color = 'red';
                 }
             }) 
+        }
+    
+        function axiosGet() {
+            const form = document.forms['register'];
+
+            const data = {
+                name: form.name.value,
+                gender: form.gender.value
+            };
+
+            axios({
+                method: 'GET',
+                url: '/axios',  // Method 2) `/axios?name${form.name.value}&gender=${form.gender.value}`; -> params key 쓸 필요가 없음
+                params: data,
+            }).then((res) => {
+                console.log(res.data);
+                const {name, gender} = res.data;
+                resultBox.textContent = `GET / Axios Request: Your name is ${name} and you are ${gender}`;
+                resultBox.style.color = 'green';
+            }).catch((err) => {
+                console.error(err);
+                resultBox.textContent = "Error! Please try it again...";
+                resultBox.style.color = 'black';
+            })
+        }
+
+        function axiosPost() {
+            const form = document.forms['register'];
+
+            const data = {
+                name: form.name.value,
+                gender: form.gender.value
+            };
+
+            axios({
+                method: 'post',
+                url: '/axios',
+                data,  // Get과는 다르게 params가 아니라 data이다
+            }).then((res) => {
+                console.log(res);
+                const {name, gender} = res.data;
+                resultBox.textContent = `POST / Axios Request: Your name is ${name} and you are ${gender}`;
+                resultBox.style.color = 'hotpink';
+            }).catch((res) => {
+                console.error(err);
+                resultBox.textContent = "Error! Please try again...";
+                resultBox.style.color = 'black';
+            })
+        }
+    
+        function fetchGet() {
+            const form = document.forms['register'];
+            const urlQuery = `?name=${form.name.value}&gender=${form.gender.value}`;
+
+            fetch(`fetch${urlQuery}`)  // default: get
+                .then((res) => {
+                    console.log(res);
+                    return res.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    resultBox.textContent = `Get / Fetch Request: Your name is ${form.name.value} and you are ${form.gender.value}`;
+                    resultBox.style.color = 'limegreen';
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+        }
+
+        function fetchPost() {
+            const form = document.forms['register'];
+
+            const data = {
+                name: form.name.value,
+                gender: form.gender.value
+            };
+
+            fetch('fetch', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            }).then((res) => {
+                return res.json();
+            }).then((data) => {
+                console.log(data);
+                resultBox.textContent = `Get / Fetch Request: Your name is ${form.name.value} and you are ${form.gender.value}`;
+                resultBox.style.color = 'violet';
+            }).catch((err) => {
+                console.error(err);
+            })
+
         }
     </script>
 </body>

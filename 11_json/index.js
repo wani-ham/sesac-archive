@@ -14,3 +14,9 @@ console.log(car); // type: json
 // json to js obj
 const obj = JSON.parse(car);
 console.log(obj);
+
+// Serialize
+// js obj to json
+const json = JSON.stringify(obj);
+console.log(json, typeof json);
+

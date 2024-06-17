@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form</title>
+
+    <!-- JQuery CDN (pour ajax) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Dynamic Form</h1>
+    <form name="register">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Your Name" name="name">
+        <br>
+
+        <span>Gender</span>
+        <input type="radio" name="gender" value="male" id="male">
+        <label for="male">Male</label>
+        <input type="radio" name="gender" value="female" id="female">
+        <label for="female">Female</label>
+        <br>
+
+        <button type="button" onclick="ajaxGet();">AJAX Get Request</button>
+        <button type="button" onclick="ajaxPost();">AJAX Post Request</button>
+        
+    </form>
+
+    <divc class="result"></div>
+
+    <script>
+        const resultBox = document.querySelector('.result');
+
+        function ajaxGet() {
+            const form = document.forms['register'];
+
+            console.dir(form);
+            console.dir(form.gender);
+            console.log(form.name.value);
+            console.log(form.gender.value);
+
+            const data = {
+                name: form.name.value,
+                gender: form.gender.value,
+            };
+
+            $.ajax({
+                type: 'GET',
+                url: '/ajax',
+                data,
+                success: function(data) {
+                    console.log(data);
+                    resultBox.textContent = `GET / Ajax Request: Your name is ${data.name} and you are ${data.gender}`;
+                    resultBox.style.color = 'blue';
+                }
+            })
+        }
+        
+        function ajaxPost() {
+            const form = document.forms['register'];
+
+            const data = {
+                name: form.name.value,
+                gender: form.gender.value,
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/ajax',
+                data,
+                success: function(data) {
+                    console.log(data);
+                    resultBox.textContent = `POST / Ajax Request: Your name is ${data.name} and you are ${data.gender}`;
+                    resultBox.style.color = 'red';
+                }
+            }) 
+        }
+    </script>
+</body>
+</html>

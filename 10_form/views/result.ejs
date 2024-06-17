@@ -15,7 +15,10 @@
     <h1><%= title %></h1>
     <div>Welcome <span><%= userInfo.id %></span> !</div>
     <div>Your password is <span><%= userInfo.pw %></span> !!</div>
-
+    <div>Your email is <span><%= userInfo.email %></span> !!</div>
+    <% if (userInfo.grade != "") { %>
+      <div>Your grade is <span><%= userInfo.grade %></span> !!</div>
+    <% } %>
     <br><br>
     <a href="/">Back to Home</a>
 </body>

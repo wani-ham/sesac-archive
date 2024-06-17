@@ -16,11 +16,11 @@
     <h1>Dynamic Form</h1>
     <form name="register">
         <label for="name">Name</label>
-        <input type="text" id="name" placeholder="Your Name" name="name">
+        <input type="text" id="name" placeholder="Your Name" name="name" required>
         <br>
 
         <span>Gender</span>
-        <input type="radio" name="gender" value="male" id="male">
+        <input type="radio" name="gender" value="male" id="male" required>
         <label for="male">Male</label>
         <input type="radio" name="gender" value="female" id="female">
         <label for="female">Female</label>
@@ -34,6 +34,8 @@
         <button type="button" onclick="fetchPost();">Fetch Post Request</button> <br>
         
     </form>
+    <br>
+    <button onclick="getTodos();">Load Todo by using External API</button>
 
     <divc class="result"></div>
 
@@ -100,7 +102,20 @@
             }).then((res) => {
                 console.log(res.data);
                 const {name, gender} = res.data;
-                resultBox.textContent = `GET / Axios Request: Your name is ${name} and you are ${gender}`;
+                let text = "";
+                let nameMissing = form.name.validity.valueMissing;  
+                let genderMissing = form.gender[0].validity.valueMissing;
+                if(nameMissing) {
+                  text += "| Enter Name |";  
+                } 
+                if(genderMissing) {
+                    text += "| Enter Gender |";
+                } 
+                if(!nameMissing && !genderMissing) {
+                    text = `GET / Axios Request: Your name is ${name} and you are ${gender}`
+                }
+
+                resultBox.textContent = text;
                 resultBox.style.color = 'green';
             }).catch((err) => {
                 console.error(err);
@@ -176,6 +191,22 @@
                 console.error(err);
             })
 
+        }
+    
+        function getTodos() {
+            fetch('https://jsonplaceholder.typicode.com/users/1/todos')
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json);
+                    json.forEach((todo) => {
+                        let div = document.createElement("div");
+                        let checked = todo.completed ? "Completed! |  " : "Not yet! |  ";
+                        let p = document.createElement("p");
+                        p.textContent = checked + todo.title;
+                        resultBox.appendChild(p);
+                    })
+                    
+            });
         }
     </script>
 </body>

@@ -1,9 +1,9 @@
--- DML (data manipulation language)
-
-use test1;
+-- DML (Data Definition Lanaguage)
+drop table orders;
+drop table customer;
 
 create table customer (
-	custid  char(10) primary key,  -- pk
+	custid char(10) primary key, -- pk
     custname varchar(10) not null,
     addr char(10) not null,
     phone char(11),
@@ -11,13 +11,12 @@ create table customer (
 );
 
 create table orders (
-	orderid int primary key auto_increment,  -- pk
-    custid char(10) not null,  -- fk
+	orderid int primary key auto_increment, -- pk
+    custid char(10) not null, -- fk
     prodname char(6) not null,
     price int not null,
     amount smallint not null,
-    -- setting fk
-    foreign key (custid) references customer(custid) on update cascade on delete cascade
+    foreign key (custid) references customer(custid) on update cascade on delete cascade -- fk 설정
 );
 
 -- 외래키 제약조건
@@ -40,31 +39,192 @@ create table orders (
 -- pk-fk 연결된 테이블은 외래키가 설정된 테이블 (참조테이블)이 먼저 삭제 
 -- (1) orders 테이블 삭제 -> (2) customer 테이블 삭제
 
+-- [insert] 
+insert into customer (custid, custname, addr, phone, birth)
+	values ('lucky', '강해원', '미국 뉴욕', '01022223333', '2002-03-05');
 
-insert into customer (custid, custname, addr, phone, birth) 
-	values ('lucky', 'Jerry', 'New York', '01012345678', '2001-01-01');
+insert into customer (addr, phone, birth, custid, custname)
+	values ('대한민국 부산', '01098765432', '2007-04-28', 'wow', '이지은');
 
-insert into customer (custid, custname, addr, phone, birth) 
-	values ('wow', 'Tom', 'Seoul', '01098765432', '2005-12-31');
-    
-insert into customer values
-	('qwer', 'Sergei', 'Moscow', '01098765432', '2005-12-31'),
-    ('yhgt', 'Jean', 'Lyon', '01062457543', '1999-12-30'),
-    ('rfde', 'Ryuhei', 'Tokyo', '01013572467', '2004-12-29');
+-- 필드명을 명시하지 않는경우 컬럼이 정의된 순서대로 값을 넣기
+insert into customer
+	values ('happy', '최시은', '일본 오키나와', '01033331234', '1970-10-31');
 
-insert into orders values (null, 'qwer', 'vodka', 3000, 2);
-insert into orders values
-	(null, 'yhgt', 'wine', 5000, 3),
-    (null, 'qwer', 'wine', 5000, 1);
+-- 여러 튜플을 동시에 추가
+insert into customer values 
+	('asdf', '강세희', '대한민국 부산', '01033331235', '2004-11-11'),
+    ('sdfg', '윤지성', '일본 도쿄', '01033331236', '1950-02-15'),
+    ('dfgh', '이재은', '미국 뉴욕', '01033331237', '2004-06-07');
 
--- update / delete
-update customer set addr = 'Paris' where custid = 'yhgt';
-delete from customer where custid = 'wow';
+insert into customer values ('kiwi', '김키위', '대한민국 서울', '01012341234', '1990-03-17');
+insert into customer values ('apple', '이사과', '대한민국 포항', '01012344321', '1992-06-17');
 
-delete from customer where custid = 'yhgt';  -- orders에도 같이 삭제됨 (on delete cascade)
-desc orders;
+-- pk가 auto_increment라면 null을 보내도 알아서 값을 채워줌
+insert into orders values (null, 'kiwi', '프링글스', 3000, 5);
+insert into orders values (null, 'apple', '프링글스', 3000, 1);
+insert into orders values (null, 'kiwi', '홈런볼', 2000, 3);
+
+-- orders 테이블이 참조하는 customer 테이블에는 banana 라는 고객이 없으므로 에러!!
+-- insert into orders values (null, 'banana', '홈런볼', 2000, 3);
+
+-- [update]
+-- custid가 happy인 고객의 주소를 대한민국 서울로 변경
+update customer set addr = '대한민국 서울' where custid = 'happy';
+ 
+-- [delete]
+-- custid가 happy인 사람의 정보를 테이블에서 삭제
+delete from customer where custid = 'happy';
+
+-- 고객 테이블에서 apple이 삭제 => 주문 테이블은 어떻게 달라지는지? (apple 고객의 주문 정보가 함께 삭제!)
+delete from customer where custid = 'apple'; -- on delete cascade
+
+
+INSERT INTO customer VALUES('bunny', '강해린', '대한민국 서울', '01012341234', '2000-02-23');
+INSERT INTO customer VALUES('hello', '이지민', '대한민국 포항', '01022221234', '1999-08-08');
+INSERT INTO customer VALUES('orange', '최지수', '미국 뉴욕', '01050005000', '1990-12-25');
+INSERT INTO customer VALUES('imminji01', '강민지', '영국 런던', '01060001000', '1995-01-11');
+INSERT INTO customer VALUES('lalala', '홍수지', '미국 로스앤젤레스', '01010109090', '2007-05-16');
+INSERT INTO customer VALUES('jjjeee', '홍은정', '대한민국 서울', '01099991111', '2004-08-17');
+INSERT INTO customer VALUES('wow123', '이민혁', '일본 삿포로', '01011223344', '1994-05-31');
+INSERT INTO customer VALUES('minjipark', '박민지', '프랑스 파리', '01088776655', '1998-04-08');
+INSERT INTO customer VALUES('jy9987', '강지연', '일본 삿포로', '01012312323', '1996-09-01');
+
+INSERT INTO orders VALUES(NULL, 'jy9987', '프링글스', 3500, 2);
+INSERT INTO orders VALUES(NULL, 'kiwi', '새우깡', 1200, 1);
+INSERT INTO orders VALUES(NULL, 'hello', '홈런볼', 4200, 2);
+INSERT INTO orders VALUES(NULL, 'minjipark', '맛동산', 2400, 1);
+INSERT INTO orders VALUES(NULL, 'bunny', '오감자', 1500, 4);
+INSERT INTO orders VALUES(NULL, 'jjjeee', '양파링', 2000, 1);
+INSERT INTO orders VALUES(NULL, 'hello', '자갈치', 1300, 2);
+INSERT INTO orders VALUES(NULL, 'jjjeee', '감자깡', 1200, 4);
+INSERT INTO orders VALUES(NULL, 'bunny', '죠리퐁', 1500, 3);
+INSERT INTO orders VALUES(NULL, 'kiwi', '꼬깔콘', 1700, 2);
+INSERT INTO orders VALUES(NULL, 'hello', '버터링', 4000, 2);
+INSERT INTO orders VALUES(NULL, 'minjipark', '칙촉', 4000, 1);
+INSERT INTO orders VALUES(NULL, 'wow123', '콘초', 1700, 3);
+INSERT INTO orders VALUES(NULL, 'imminji01', '꼬북칩', 2000, 2);
+INSERT INTO orders VALUES(NULL, 'bunny', '썬칩', 1800, 5);
+INSERT INTO orders VALUES(NULL, 'kiwi', '고구마깡', 1300, 3);
+INSERT INTO orders VALUES(NULL, 'jy9987', '오징어집', 1700, 5);
+INSERT INTO orders VALUES(NULL, 'jjjeee', '바나나킥', 2000, 4);
+INSERT INTO orders VALUES(NULL, 'imminji01', '초코파이', 5000, 2);
+
+
 select * from customer;
-select * from orders;
+select * from ordersorders;
+
+select custid from customer;
+select custid, birth from customer;
+
+select distinct addr from customer;  -- 중복 값 제외
+
+-- [where 절] 디테일한 조회 조건 추가
+-- 1. 비교
+-- 강해린 고객의 생일 조회 
+select birth from customer where custname = '강해린';
+
+-- 강해린 고객을 제외한 나머지 고객의 생일 조회
+select birth from customer where custname != '강해린';
+
+-- 사전 순으로 박민지 고객보다 뒤에 위치한 고객 조회 
+select * from customer where custname > '박민지';
+
+-- 2. 범위
+-- 1995~2000년 출생한 고객 조회
+select * from customer where birth between '1995-01-01' and '2000-12-31';
+select * from customer where birth >= '1995-01-01' and  birth <= '2000-12-31';
+
+-- 3. 집합
+-- 주소가 서울 혹은 런던인 고객 조회
+select * from customer where addr in ('대한민국 서울', '영국 런던');
+select * from customer where addr = '대한민국 서울' or addr = '영국 런던';
+
+-- 주소가 서울 혹은 런던이 아닌 고객 조회
+select * from customer where addr not in ('대한민국 서울', '영국 런던');
+
+-- 4. 패턴
+-- 주소가 '미국 로스앤젤레스'인 고객을 검색
+select * from customer where addr like '미국 로스앤젤레스';
+
+-- 주소에 '미국'이 포함되어 있는 고객 검색 (미국에 사는 사람)
+select * from customer where addr like '미국%';
+
+-- 고객 이름 두번째 글자가 '지'인 고객 검색
+select * from customer where custname like '_지%';
+
+-- 고객 이름 세번째 글자가 '수'인 고객
+select * from customer where custname like '__수%';
 
 
+-- 5. 복합 조건
+-- 주소지가 대한민국이고, 2000년생 이후 출생 고객 검색
+select * from customer where addr like '대한민국%' and birth >= '2000-01-01';
+-- 주소지가 미국이거나 영국인 고객 검색
+select * from customer where addr like '미국%' or addr like '영국%';
+-- 휴대폰 번호 마지막 자리가 4가 아닌 고객 검색
+select * from customer where phone not like '%_4';
+
+-- 6. limit : 개수 제한
+-- 2000년생 이후 출생자 중에서 주소를 기준으로 내림차순 그리고 아이디를 기준으로 내림차순 검색하는데 최초의 4개
+select * from customer where birth >= '2000-01-01' order by addr desc, custid desc limit 4;
+select * from customer where birth >= '2000-01-01' limit 2;
+select * from customer limit 1;
+select * from customer where addr like '대한민국%' limit 2;
+
+-- 7. 집계 함수
+-- : 계산하여 어떤 값을 "리턴"하는 "함수"
+-- group by 함께 많이 씀
+-- 
+-- 주문 테이블에서 상품의 총 판매 개수 검색
+select sum(amount) from orders;
+-- 주문 테이블에서 총 판매 개수 검색 + 의미있는 열이름으로 변경 
+select sum(amount) as 'total_amount' from orders;
+-- 주문 테이블에서 총 판매 개수, 평균 판매 개수, 상품 최저가, 상품 최고가 검색
+select sum(amount) as 'total_amount',
+	avg(amount) as 'average_amount',
+    min(price) as 'minimum_price',
+    max(price) as 'maximum_price' from orders;
+-- 주문 테이블에서 총 주문 건수 (= 튜플 개수)
+select count(*) from orders;
+-- 주문 테이블에서 주문한 고객 수 (중복 없이)
+select count(distinct custid) from orders;
+
+-- 8. group by: "~별로"
+-- 고객별로 주문한 주문 건수 구하기
+select custid, count(*) from orders group by custid;
+-- 고객별로 주문한 상품 총 수량 구하기
+select custid, sum(amount) from orders group by custid;
+-- 고객별로 주문한 총 주문액 orders구하기
+select custid, sum(price * amount) from orders group by custid;
+-- 응용 버전. 주문총액이 가장 큰 top 3
+select custid, sum(price * amount) as 'total_pay' 
+	from orders group by custid order by total_pay desc limit 3;
+-- 상품별로 판매 개수 구하기
+select prodname, sum(amount) from orders group by prodname;
+
+
+-- 9. having : group by 절 이후에 추가 조건
+-- 총 주문액이 10000원 이상인 고객에 대해서 // 고객별로 주문한 상품 총 수량 구하기
+select custid, sum(amount), sum(price * amount) 
+	from orders group by custid having sum(price * amount) >= 10000;
+-- 총 주문액이 10000원 이상인 고객에 대해서 고객별로 주문한 상품 총 수량 구하기 
+-- (단, custid가 'bunny'인 고객은 제외하고 출력할 것)
+select custid, sum(amount), sum(price * amount) 
+	from orders 
+		where custid != 'bunny'
+		group by custid having sum(price * amount) >= 10000;
+
+/*
+where vs. having
+
+having
+- 그룹에 대해서 필터링 (그래서 group by 와 함께 쓰임)
+- group by 보다 뒤에 위치해야 함
+- 집계 함수랑 함께 사용 가능
+
+where 
+- 각각의 행을 필터링
+- group by 보다 앞에 위치
+- 집계함수를 쓸 수는 있으나 having 절 보다는 자유롭지 못함
+*/
 

@@ -122,36 +122,31 @@ select distinct addr from customer;  -- 중복 값 제외
 -- 1. 비교
 -- 강해린 고객의 생일 조회 
 select birth from customer where custname = '강해린';
-
 -- 강해린 고객을 제외한 나머지 고객의 생일 조회
 select birth from customer where custname != '강해린';
-
 -- 사전 순으로 박민지 고객보다 뒤에 위치한 고객 조회 
 select * from customer where custname > '박민지';
-
 -- 2. 범위
 -- 1995~2000년 출생한 고객 조회
 select * from customer where birth between '1995-01-01' and '2000-12-31';
 select * from customer where birth >= '1995-01-01' and  birth <= '2000-12-31';
 
+
 -- 3. 집합
 -- 주소가 서울 혹은 런던인 고객 조회
 select * from customer where addr in ('대한민국 서울', '영국 런던');
 select * from customer where addr = '대한민국 서울' or addr = '영국 런던';
-
 -- 주소가 서울 혹은 런던이 아닌 고객 조회
 select * from customer where addr not in ('대한민국 서울', '영국 런던');
+
 
 -- 4. 패턴
 -- 주소가 '미국 로스앤젤레스'인 고객을 검색
 select * from customer where addr like '미국 로스앤젤레스';
-
 -- 주소에 '미국'이 포함되어 있는 고객 검색 (미국에 사는 사람)
 select * from customer where addr like '미국%';
-
 -- 고객 이름 두번째 글자가 '지'인 고객 검색
 select * from customer where custname like '_지%';
-
 -- 고객 이름 세번째 글자가 '수'인 고객
 select * from customer where custname like '__수%';
 

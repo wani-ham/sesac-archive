@@ -8,6 +8,9 @@ app.set('views', './views');
 const indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
+const userRouter = require('./routes/user');
+app.use('/user', userRouter);
+
 app.get('*', (req,res) => {
     res.render('404');
 })

@@ -17,7 +17,7 @@ exports.postVisitor = (req, res) => {
     console.log(req.body);
     Visitor.postVisitor(req.body, (result) => {
         // result -> rows.insertId
-
+        console.log('controller/CVisitor.js >> ', result);
     })
     res.send({id: result,
         name: req.body.name,

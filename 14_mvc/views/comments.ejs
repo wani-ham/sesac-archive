@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments</title>
+</head>
+<body>
+    <h1>Comments List</h1>
+    <a href="/">Home</a>
+    <ul>
+        <% comments.forEach((element) => { %>
+            <li>
+                <%= element.userid %>
+                -
+                <a href="/comment/<%= element.id %>">
+                    <%= element.comment %>
+                </a>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

@@ -46,3 +46,10 @@ exports.deleteVisitor = (req, res) => {
     res.send({ result }); // { result: result }
   })
 }
+
+exports.getVisitor = (req, res) => {
+    // req.params.id: // 조회해야할 id
+    Visitor.getVisitor(req.params.id, (result) => {
+      res.send(result);
+    }); 
+  }

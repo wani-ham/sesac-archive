@@ -1,4 +1,5 @@
 const tbody = document.querySelector('tbody');
+const buttonGroup = document.querySelector('#button-group');
 
 // 폼의 [등록] 버튼 클릭시 -> POST /visitor 요청 
 function createVisitor() {
@@ -24,7 +25,7 @@ function createVisitor() {
                 <td>${data.id}</td>
                 <td>${data.name}</td>
                 <td>${data.comment}</td>
-                <td><button type="button">수정</button></td>
+                <td><button type="button" onclick="editVisitor(${data.id};")">수정</button></td>
                 <td><button type="button" onclick="deleteVisitor(this, ${data.id});">>삭제</button></td>
             </tr>
         `;
@@ -52,11 +53,30 @@ function deleteVisitor(obj, id) {
         }
     }).then((res) => {
         console.log(res.data)
+
         if (res.data.result) {
-            console.log("삭제 성공!");
-            obj.parentElement.parentElement.remove();
+            // alert('삭제 성공!');
+            // obj.parentElement.parentElement.remove();
+            obj.closest(`#tr_${id}`).remove();
         }
     })
+}
 
+function editVisitor(id) {
+    axios({
+        method: 'GET',
+        url: `/visitor/${id}`
+    }).then((res) => {
+        console.log(res.data);
+        const {name, comment} = res.data;
+        const form = document.form['visitor-form'];
+        form.name.value = name;
+        form.comment.value = comment;
+    })
 
+    const html = `
+        <button type="button">Change</button>
+        <button type="button">Cancel</button>
+    `;
+    buttonGroup.innerHTML = html;
 }

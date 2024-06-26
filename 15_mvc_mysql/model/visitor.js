@@ -17,6 +17,14 @@ exports.getVisitors = (callback) => {
     });
 };
 
+exports.getVisitor = (targetId, callback) => {
+    conn.query(`select * from visitor where id=${targetId}`, (err, rows) => {
+        if(err) throw err;
+        console.log('model/Visitor.js >> ', rows);
+        callback(rows[0]);
+    })
+}
+
 exports.postVisitor = (data, callback) => {
     conn.query(`insert into visitor(name, comment) values ('${data.name}', '${data.comment}')`,
         (err, rows) => {

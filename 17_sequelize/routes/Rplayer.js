@@ -6,5 +6,9 @@ const controller = require('../controller/Cplayer');
 // localhost:PORT/players
 
 router.get('/', controller.getPlayers);
+router.get('/:player_id', controller.getPlayer);
+router.post('/', controller.postPlayer);
+router.patch('/:player_id/team', controller.patchPlayer);
+router.delete('/:player_id', controller.deletePlayer);
 
 module.exports = router;

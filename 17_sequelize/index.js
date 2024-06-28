@@ -3,6 +3,7 @@ const app = express();
 const PORT = 8000;
 const router = require('./routes/Rindex');
 const playerRouter = require('./routes/Rplayer');
+const teamRouter = require('./routes/Rteam');
 const { sequelize } = require('./models');
 
 app.set('view engine', 'ejs');
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use('/', router);
 app.use('/players', playerRouter);
+app.use('/teams', teamRouter);
 
 sequelize   
     // force: true = 서버 실행때마다 테이블을 재생성

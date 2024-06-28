@@ -8,6 +8,8 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 const PlayerModel = require('./Player')(sequelize, Sequelize);
 const ProfileModel = require('./Profile')(sequelize, Sequelize);
 const TeamModel = require('./Team')(sequelize, Sequelize);
+const GameModel = require('./Game')(sequelize, Sequelize);
+const TeamGameModel = require('./TeamGame')(sequelize, Sequelize);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
@@ -16,6 +18,8 @@ db.Sequelize = Sequelize;
 db.Player = PlayerModel;
 db.Profile = ProfileModel;
 db.Team = TeamModel;
+db.Game = GameModel;
+db.TeamGame = TeamGameModel;
 
 // 모델간 관계 연결
 // sourceKey <-> targetKey 유의!!
@@ -41,6 +45,18 @@ PlayerModel.belongsTo(TeamModel, {
   targetKey: 'team_id'
 })
 
+// 3) Team : Game = N:N
+// TeamGame 
+TeamModel.belongsToMany(GameModel, {
+  through: TeamGameModel,
+  foreignKey: 'team_id',  // TeamGameModel에서 TeamModel을 참조하는 fk
+  otherKey: 'game_id'  // TeamGameModel에서 GameModel을 참조하는 fk
+});
+GameModel.belongsToMany(TeamModel, {
+  through: TeamGameModel,
+  foreignKey: 'game_id',
+  otherKey: 'team_id'
+});
 
 module.exports = db;
 // 다른 파일에서 db module을 사용할 예정

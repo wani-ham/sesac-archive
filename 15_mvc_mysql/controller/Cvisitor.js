@@ -1,4 +1,4 @@
-const Visitor = require('../model/Visitor');
+const Visitor = require('../model/visitor');
 
 // (1) GET / => localhost:PORT/
 exports.main = (req, res) => {
@@ -25,7 +25,7 @@ exports.getVisitors = (req, res) => {
 
 exports.getVisitor = (req, res) => {
   // req.params.id: // 조회해야할 id
-  Visitor.getVisitor(req.params.id, (result) => {
+  Visitor.getVisitor(req.query.id, (result) => {
     res.send(result);
   }); 
 }

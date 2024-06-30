@@ -20,14 +20,12 @@ router.get('/signin', controller.getSignin);
 router.post('/signin', controller.postSignin);
 
 // post /user/profile
-
-
-// post /user/profile
-
+router.post('/profile', controller.getUser);
 
 // patch /user/profile/edit
-
+router.patch('/profile/edit', controller.updateUser);
 
 // delete /user/profile/delete
+router.delete('/profile/delete', controller.deleteUser);
 
 module.exports = router;

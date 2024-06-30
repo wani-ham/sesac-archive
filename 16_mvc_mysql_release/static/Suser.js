@@ -16,8 +16,6 @@ function register() {
     })
 }
 
-
-
 // TODO: [Login] 버튼 클릭시 서버에 로그인 요청하기
 // POST /user/signin
 function login() {
@@ -34,4 +32,39 @@ function login() {
         console.log(res.data);
     })
 }
+
+// TODO: [Login] 버튼 클릭시 서버에 회원 정보 수정 요청하기
+function profileEdit() {
+    const form = document.forms['form_profile'];
+    axios ({
+        method: 'PATCH',
+        url: '/profile/edit',
+        data: {
+        id: form.id.value,
+        pw: form.pw.value,
+        name: form.name.value
+        }
+    }).then(res => {
+    console.log(res.data);
+        if (res.data.result) alert('Edited!');  
+    });
+}
+
+// TODO: [Login] 버튼 클릭시 서버에 회원 정보 삭제 요청하기
+function profileDelete() {
+    axios({
+        method: 'DELETE',
+        url: '/profile/delete',
+        data: {
+            id: document.getElementById('id').value
+        }
+    })
+    .then((res) => {
+        console.log(res.data)
+        if (res.data.result) {
+            alert('Deleted!');
+            document.location.href = '/';
+        }
+    });
+};
     

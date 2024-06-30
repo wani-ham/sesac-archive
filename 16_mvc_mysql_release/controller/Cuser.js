@@ -33,12 +33,44 @@ exports.postSignup = (req, res) => {
 
 // post, signin
 exports.postSignin = (req, res) => {
-    console.log(req.body);
-    User.postSignin(req.body, (result) => {
-        console.log(result);
-        res.send({
-            id: req.body.id,
-            pw: req.body.pw
-        })
+    const { id, pw } = req.body;
+
+    User.postSignin({ userid : id }, (result) => {
+        if (!result) {
+            return res.send({ 
+                result, 
+                flag: false 
+            });
+        } else {
+            if (pw !== result.pw) {
+                return res.send({ 
+                    result, 
+                    flag: false
+                });
+            } else {
+                return res.send({ 
+                    result, 
+                    flag: true 
+                });
+            }
+        }
+    });
+}
+
+exports.getUser = (req, res) => {
+    User.getUser(req.body, (result)=> {
+        res.render('profile', {data: result})
     })
+}
+
+exports.updateUser = (req, res) => {
+    User.updateUser(req.body, (result) => {
+          res.send({ result });
+    });
+}
+
+exports.deleteUser = (req, res) => {
+    User.deleteUser(req.body.id, (result)=> {
+        res.send({ result });
+    });
 }

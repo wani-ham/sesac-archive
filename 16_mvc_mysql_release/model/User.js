@@ -30,3 +30,29 @@ exports.postSignin = (data, cb) => {
         }
     )
 }
+
+exports.getUser = (req, res) => {
+    conn.query(`SELECT * FROM user WHERE userid='${data.userid}' limit 1`, 
+        (err, rows)=>{
+            if (err) throw err;
+            cb(rows[0]);
+        }
+    );
+}
+
+exports.updateUser = (req, res) => {
+    const { id, pw, name } = updateData;
+    conn.query(`UPDATE user SET pw ='${pw}', name='${name}' WHERE id=${id}`, (err, rows) => {
+            if (err) throw err;
+            cb(true);
+        }
+    );
+}
+
+exports.deleteUser = (req, res) => {
+    conn.query(`DELETE FROM user WHERE id=${targetId}`, (err, rows) => {
+        if (err) throw err;
+        cb(true);
+      }
+    );
+}

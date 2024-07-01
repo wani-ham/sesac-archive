@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <h1>Cookie</h1>
@@ -25,7 +26,7 @@
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate vero quod ut asperiores doloremque dolor magnam. Maiores mollitia, et cumque eos consectetur nobis porro enim beatae distinctio hic, doloremque ut?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="bannerHide();">Close</button>
                     <button type="button" class="btn btn-primary" onclick="setCookie();">Hide banner for one day</button>
                 </div>
             </div>
@@ -33,7 +34,6 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- <script src="../static/Smain.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         const myModal = new bootstrap.Modal('#exampleModal', {
             keyboard: false
@@ -43,20 +43,24 @@
 
         const setCookie = async () => {
             try {
-                const res = axios({
-                    method: 'POST',
+                console.log("Hide banner");
+                const res = await axios({
+                    method: 'post',
                     url: '/',
-                    // 추가하려는 정보를 req.body에 실어서 요청을 보냄
                     data: {
                         hide: 'true'
                     }
                 })
-                console.log("Hide banner");
+
+                
             } catch (err) {
                 if(err) throw console.error(err);
             }
         }
 
+        const bannerHide = () => {
+            myModal.hide();
+        }
     </script>
 </body>
 </html>

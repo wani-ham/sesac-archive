@@ -3,13 +3,7 @@ const router = express.Router();
 const controller = require('../controller/Cmain');
 
 router.get('/', controller.index);
-
-//router.post('/', controller.setCookie);
-
-
-
-
-
+router.post('/', controller.setCookie);
 
 
 

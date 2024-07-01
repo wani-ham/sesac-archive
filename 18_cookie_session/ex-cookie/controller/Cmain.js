@@ -5,6 +5,10 @@ const cookieParser = require('cookie-parser');
 const router = require('../routes/Rindex');
 const path = require('path');
 
+dotenv.config({
+    path: path.resolve(__dirname, '../.env')
+})
+
 // cookie-parser middleware
 app.use(cookieParser(process.env.COOKIE_SECRET));
 const cookieConfig = {
@@ -20,7 +24,10 @@ exports.index = (req, res) => {
 }
 
 exports.setCookie = (req, res) => {
+    //const hide = req.body.hide;
+    console.log(req.body);
     res.cookie('hideBanner', 'true', cookieConfig);
+    res.send('set signed cookie!');
 }
 
 // app.get('/setCookie', (req, res) => {

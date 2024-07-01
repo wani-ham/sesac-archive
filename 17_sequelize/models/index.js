@@ -1,9 +1,14 @@
 const Sequelize = require('sequelize');
-const config = require(__dirname + '/../config/config.json')["development"];  // env -> "development"
+//****************************
+// const config = require(__dirname + '/../config/config.json')["development"];  // env -> "development"
+const config = require(__dirname + '/../config/config.js');  
+const sequelize = new Sequelize(config.database, config.username, config.password, config);
+// **************************
+
 const db = {};
 
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+
 
 const PlayerModel = require('./Player')(sequelize, Sequelize);
 const ProfileModel = require('./Profile')(sequelize, Sequelize);

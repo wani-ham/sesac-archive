@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
 //****************************
 // const config = require(__dirname + '/../config/config.json')["development"];  // env -> "development"
-const config = require(__dirname + '/../config/config.js');  
+const config = require(__dirname + '/../config/config.js');
+console.log("config >> ", config);  
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 // **************************
 

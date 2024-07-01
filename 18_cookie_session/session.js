@@ -29,15 +29,28 @@ app.get('/', (req, res) => {
 
 app.get('/set', (req, res) => {
     //req.session.keyName = value;
+    if(req.query.name) {
+        req.session.name = req.query.name;
+        req.session.age = req.query.age;
+    } else {
+        req.session.name = 'banana';
+        req.session.age = 10;
+    }
     
-    req.session.name = 'banana';
-    req.session.age = 10;
     res.send('Session Set!');
 })
 
 app.get('/name', (req, res) => {
     console.log("req.session >> ", req.session);
     res.send({id: req.sessionID, name: req.session.name});
+})
+
+app.get('/destroy', (req, res) => {
+    req.session.destroy((err) => {
+        if(err) throw err;
+        // res.send('Session Deleted!');
+        res.redirect('/name');
+    })
 })
 
 app.listen(port, () => {

@@ -10,15 +10,78 @@
     
     <!-- socket.io server가 제공하는 클라이언트 라이브러리 -->
     <script src="/socket.io/socket.io.js"></script>
+
+    <style>
+        /* 실습2: 채팅창 UI */
+        .chat-list {
+            background-color: skyblue;
+            height: 500px;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .chat-list div {
+            margin-top: inline-block;
+        }
+
+        .chat-list div div {
+            padding: 3px;
+            display: inline-block;
+        }
+
+        .my-chat {
+            text-align: right;
+        }
+
+        .my-chat div {
+            background-color: yellow;
+        }
+
+        .other-chat div {
+            background-color: white;
+        }
+
+        .notice {
+            text-align: center;
+            color: #333;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
     <h1>My Chat</h1>
 
     <!-- [실습 1] 각 버튼을 누를때마다 서버로 메세지 전송  -->
-     <button onclick="sayHello();">Hello</button>
-     <button onclick="sayStudy();">Study</button>
-     <button onclick="sayBye();">Bye</button>
-     <p id="from-server"></p>
+    <!-- <button onclick="sayHello();">Hello</button>
+    <button onclick="sayStudy();">Study</button>
+    <button onclick="sayBye();">Bye</button>
+    <p id="from-server"></p> -->
+
+    <!-- 실습 3-2: socket.id를 닉네임으로. -->
+     <div class="entry-box">
+        <input 
+            type="text" 
+            id="nickname"
+            placeholder="nickname"
+            autofocus
+            onkeypress="if(window.event.keyCode==13)(join())"
+        />
+        <button type="button" onclick="join();">Enter</button>
+     </div>
+    <br>
+    
+
+    <!-- [실습 2] 채팅 UI 만들기 -->
+     <main class="chat-box">
+        <div class="chat-list">
+            <div class="my-chat">
+                <div>user1: msg1</div>
+            </div>
+            <div class="other-chat">
+                <div>user2: msg2</div>
+            </div>
+        </div>
+     </main>
 
     <script>
         let socket = io();
@@ -28,32 +91,47 @@
         })
 
         // 실습 1
-        function sayHello() {
-            socket.emit('hello', {who: 'client', msg: 'hello'});
-        }
+        // function sayHello() {
+        //     socket.emit('hello', {who: 'client', msg: 'hello'});
+        // }
 
-        socket.on('hellokr', (data) => {
-            console.log(`Who: ${data.who}, MSG: ${data.msg}`);
-            document.querySelector('#from-server').textContent = `Who: ${data.who}, MSG: ${data.msg}`;
+        // socket.on('hellokr', (data) => {
+        //     console.log(`Who: ${data.who}, MSG: ${data.msg}`);
+        //     document.querySelector('#from-server').textContent = `Who: ${data.who}, MSG: ${data.msg}`;
+        // })
+
+        // function sayStudy() {
+        //     socket.emit('study', {who: 'client', msg: 'study'});
+        // }
+
+        // socket.on('studykr', (data) => {
+        //     console.log(`Who: ${data.who}, MSG: ${data.msg}`);
+        //     document.querySelector('#from-server').textContent = `Who: ${data.who}, MSG: ${data.msg}`;
+        // })
+
+        // function sayBye() {
+        //     socket.emit('bye', {who: 'client', msg: 'bye'});
+        // }
+
+        // socket.on('byekr', (data) => {
+        //     console.log(`Who: ${data.who}, MSG: ${data.msg}`);
+        //     document.querySelector('#from-server').textContent = `Who: ${data.who}, MSG: ${data.msg}`;
+        // })
+
+        // 실습 3
+        socket.on('notice', (msg) => {
+            console.log(msg);
+            document.querySelector('.chat-list').insertAdjacentHTML('beforeend', `<div class="notice">${msg}</div>`);
+            // innerHTML vs innerAdjacentHTML
+            // innerAdjacentHTML: 삽입할 위치를 명시적으로 지정가능. 특정 위치에 html을 추가하려면 사용
+            // beforeend, beforebegin, afterbegin, afterend
+            // innerHTML: 요소에 전체 내용을 대체하게 됨. 요소의 내용을 한번에 대체하거나 가져올 수 있음.
         })
 
-        function sayStudy() {
-            socket.emit('study', {who: 'client', msg: 'study'});
+        // 실습 3-2 socketid -> nickname
+        function join() {
+            socket.emit('setNick', document.querySelector('#nickname').value);
         }
-
-        socket.on('studykr', (data) => {
-            console.log(`Who: ${data.who}, MSG: ${data.msg}`);
-            document.querySelector('#from-server').textContent = `Who: ${data.who}, MSG: ${data.msg}`;
-        })
-
-        function sayBye() {
-            socket.emit('bye', {who: 'client', msg: 'bye'});
-        }
-
-        socket.on('byekr', (data) => {
-            console.log(`Who: ${data.who}, MSG: ${data.msg}`);
-            document.querySelector('#from-server').textContent = `Who: ${data.who}, MSG: ${data.msg}`;
-        })
     </script>
 </body>
 </html>

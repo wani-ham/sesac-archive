@@ -25,6 +25,24 @@ io.on('connection', (socket) => {
     // connection event occurs when client is connected
     console.log('Server connected :: ', socket.id);
     // socket.id: socket 고유 id (browser tab 단위)
+
+    // 실습 1
+    const socketLog = (data, addStr) => {
+        console.log(`Who: ${data.who}, MSG: ${data.msg}`);
+        socket.emit(`${addStr}`, {who: 'server', msg: 'Hello Client! from ' + addStr});
+    }
+
+    socket.on('hello', (data) => {
+        socketLog(data, 'hellokr');
+    })
+
+    socket.on('study', (data) => {
+        socketLog(data, 'studykr');
+    })
+
+    socket.on('bye', (data) => {
+        socketLog(data, 'byekr');
+    })
 })
 
 

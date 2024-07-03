@@ -14,11 +14,45 @@
 <body>
     <h1>My Chat</h1>
 
+    <!-- [실습 1] 각 버튼을 누를때마다 서버로 메세지 전송  -->
+     <button onclick="sayHello();">Hello</button>
+     <button onclick="sayStudy();">Study</button>
+     <button onclick="sayBye();">Bye</button>
+     <p id="from-server"></p>
+
     <script>
         let socket = io();
         socket.on('connect', () => {
             console.log(`Client connected :: ${socket.id}`);
             console.log(socket);
+        })
+
+        // 실습 1
+        function sayHello() {
+            socket.emit('hello', {who: 'client', msg: 'hello'});
+        }
+
+        socket.on('hellokr', (data) => {
+            console.log(`Who: ${data.who}, MSG: ${data.msg}`);
+            document.querySelector('#from-server').textContent = `Who: ${data.who}, MSG: ${data.msg}`;
+        })
+
+        function sayStudy() {
+            socket.emit('study', {who: 'client', msg: 'study'});
+        }
+
+        socket.on('studykr', (data) => {
+            console.log(`Who: ${data.who}, MSG: ${data.msg}`);
+            document.querySelector('#from-server').textContent = `Who: ${data.who}, MSG: ${data.msg}`;
+        })
+
+        function sayBye() {
+            socket.emit('bye', {who: 'client', msg: 'bye'});
+        }
+
+        socket.on('byekr', (data) => {
+            console.log(`Who: ${data.who}, MSG: ${data.msg}`);
+            document.querySelector('#from-server').textContent = `Who: ${data.who}, MSG: ${data.msg}`;
         })
     </script>
 </body>

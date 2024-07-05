@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket Room</title>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <style>
+        #body {
+            width: 100%;
+            height: 70vh;
+            position: relative;
+            background-color: aquamarine;
+        }
+
+        #chat {
+            position: absolute;
+            bottom: 0px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        #notice {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: gray;
+        }
+
+        #notice p {
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Chat room</h1>
+    <div id="main">
+        <form id="room">
+            <input type="text" id="roomName" placeholder="Create Room">
+            <input type="text" id="userName" placeholder="Enter Username">
+            <button>Create</button>
+        </form>
+    </div>
+
+    <div id="body" hidden>
+        <div id="message">
+            <div id="notice"></div>
+        </div>
+        <!-- 채팅 입력 구간 -->
+         <form id="chat">
+            <select id="userList"></select>
+            <input type="text" id="chatMessage" placeholder="Enter Message">
+            <button>Enter</button>
+         </form>
+    </div>
+
+    <script>
+        const socket = io();
+        const roomForm = document.querySelector('#room');
+        const chatForm = document.querySelector('#chat');
+        const notice = document.querySelector('#notice');
+        const message = document.querySelector('#message');
+        let myName = '';
+
+        roomForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const roomName = roomForm.querySelector('#roomName').value;
+            const userName = roomForm.querySelector('#userName').value;
+
+            if (roomName === '' || userName === '') {
+                alert('Enter Name of the room and user');
+            }
+
+            socket.emit('create', {roomName, userName});
+            const main = document.querySelector('#main');
+            const body = document.querySelector('#body');
+            main.hidden = true;
+            body.hidden = false;
+
+            myName = userName;
+        })
+
+        socket.on('connect', () => {
+            console.log(`socket connected...id: ${socket.id}`);
+        })
+
+        socket.on('notice', (res) => {
+            const div = document.createElement('div');
+            const p = document.createElement('p');
+            p.textContent = res;
+            div.appendChild(p);
+            notice.appendChild(div);
+        })
+        
+        socket.on('userList', (res) => {
+            const lists = document.querySelector('#userList');
+            let options = `<option>All</option>`;
+            for (let i of res) {
+                options += `<option value="${i.key}">${i.userName}</option>`
+            }
+            lists.innerHTML = options;
+        })
+
+        
+    </script>
+</body>
+</html>

@@ -24,6 +24,11 @@ app.get('/', (req, res) => {
 // 실습 3-2-1
 const nickObjs = {};
 
+// 실습 3-2-3
+function updateList() {
+    io.emit('updateNicks', nickObjs);  // 전체 사용자 닉네임 모음 객체 전달
+}
+
 
 // io.on(): socket 관련한 통신 작업을 처리
 io.on('connection', (socket) => {
@@ -50,7 +55,7 @@ io.on('connection', (socket) => {
     // })
 
     // 실습 3
-    io.emit('notice', `${socket.id} entered the room.`);
+    // io.emit('notice', `${socket.id} entered the room.`);
 
     // 실습 3-2
     // emit() from server
@@ -62,7 +67,33 @@ io.on('connection', (socket) => {
         console.log(`${nick} entered`);
 
         // 실습 3-2-1
-        // front에서 입력한 nick이 nickObjs
+        // front에서 입력한 nick이 nickObjs 객체에 존재하는지 검사
+        if (Object.values(nickObjs).indexOf(nick) > -1) {  // already exists
+            socket.emit('error', 'already exists');
+        } else {
+            // new nickname
+            nickObjs[socket.id] = nick;
+            console.log('online user list :: ', nickObjs);
+            io.emit('notice', `${nick} Entered`);
+
+            // 실습 3-2-2
+            socket.emit('entrySuccess', nick);
+            updateList();
+        }
+    })
+
+    // 실습 3-3 클라이언트 퇴장시
+    // "notice" 이벤트로 퇴장 공지
+    socket.on('disconnect', () => {
+        console.log('Disconnected :: ', `${nickObjs[socket.id]}`);
+        io.emit('notice', `${nickObjs[socket.id]} exited the room`);
+        delete nickObjs[socket.id];
+        updateList;
+    })
+
+    socket.on('send', (data) => {
+        console.log(data);
+        io.emit('newMessage', {nick: data.myNick, msg: data.msg});
     })
 })
 

@@ -46,6 +46,10 @@
             color: #333;
             font-size: 12px;
         }
+
+        .d-none {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -72,7 +76,7 @@
     
 
     <!-- [실습 2] 채팅 UI 만들기 -->
-     <main class="chat-box">
+     <main class="chat-box d-none">
         <div class="chat-list">
             <div class="my-chat">
                 <div>user1: msg1</div>
@@ -81,6 +85,14 @@
                 <div>user2: msg2</div>
             </div>
         </div>
+
+        To <select id="nick-list"></select>
+        <input 
+            type="text"
+            id="message"
+            onkeypress="if(window.event.keyCode==13)(send())">
+        <button type="button" onclick="send()">Send</button>
+
      </main>
 
     <script>
@@ -132,6 +144,54 @@
         function join() {
             socket.emit('setNick', document.querySelector('#nickname').value);
         }
+
+        // 실습 3-2-1
+        socket.on('error', (data) => {
+            alert(data);
+        })
+
+        // 실습 3-2-2
+        let myNick;
+        socket.on('entrySuccess',  (nick) => {
+            myNick = nick;
+            document.querySelector('#nickname').disabled = true;
+            document.querySelector('.entry-box > button').disabled = true;
+            document.querySelector('.chat-box').classList.remove('d-none');
+        })
+
+        socket.on('updateNicks', (nickObjs) => {
+            let options = `<option value="all">All</option>`;
+
+            for (const [key, value] of Object.entries(nickObjs)) {
+                options += `<option value="${key}">${value}</option>`;
+            }
+
+            document.querySelector('#nick-list').innerHTML = options;
+        })
+
+        function send() {
+            const data = {
+                dm: document.querySelector('#nick-list').value,
+                myNick,
+                msg: document.querySelector('#message').value
+            }
+            socket.emit('send', data);
+        }
+
+        socket.on('newMessage', (data) => {
+            console.log(`client :: ${data.nick} || ${data.msg}`);
+            let chatList = document.querySelector('.chat-list');
+            let div = document.createElement('div');
+            let divChat = document.createElement('div');
+            if (myNick === data.nick) {
+                div.classList.add('my-chat');
+            } else {
+                div.classList.add('other-chat');
+            }
+            divChat.textContent += `${data.msg}`;
+            div.append(divChat);
+            chatList.append(div);
+        })
     </script>
 </body>
 </html>

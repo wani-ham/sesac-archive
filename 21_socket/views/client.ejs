@@ -21,7 +21,7 @@
         }
 
         .chat-list div {
-            margin-top: inline-block;
+            margin-top: 3px;
         }
 
         .chat-list div div {
@@ -49,6 +49,10 @@
 
         .d-none {
             display: none;
+        }
+
+        .secret-chat div {
+            background-color: palevioletred;
         }
     </style>
 </head>
@@ -163,7 +167,11 @@
             let options = `<option value="all">All</option>`;
 
             for (const [key, value] of Object.entries(nickObjs)) {
-                options += `<option value="${key}">${value}</option>`;
+                // options += `<option value="${key}">${value}</option>`;
+                // [추가 실습] 나에게 dm 시 메세지 2번 찍히는 오류 
+                if (value != myNick) {
+                    options += `<option value="${key}">${value}</option>`;
+                }
             }
 
             document.querySelector('#nick-list').innerHTML = options;
@@ -188,9 +196,19 @@
             } else {
                 div.classList.add('other-chat');
             }
+            // 실습 5 dm 기능 추가하기
+            if (data.dm) {
+                div.classList.add('secret-chat');
+                divChat.textContent = data.dm;
+            }
+
+            // 실습 4-2 실제로 대화내용이 채팅창에 추가되는 부분
             divChat.textContent += `${data.msg}`;
             div.append(divChat);
             chatList.append(div);
+
+            // 메세지가 많아지더라도 하단에 고정 
+            chatList.scrollTop = chatList.scrollHeight;
         })
     </script>
 </body>

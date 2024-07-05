@@ -92,8 +92,22 @@ io.on('connection', (socket) => {
     })
 
     socket.on('send', (data) => {
-        console.log(data);
-        io.emit('newMessage', {nick: data.myNick, msg: data.msg});
+        // console.log(data);
+        // io.emit('newMessage', {nick: data.myNick, msg: data.msg});
+
+        // 실습 5 - dm 기능
+        if (data.dm === 'all') {
+            io.emit('newMessage', {nick: data.myNick, msg: data.msg});
+        } else {
+            let dmSocketId = data.dm;
+            const sendData = {
+                nick: data.myNick,
+                msg: data.msg,
+                dm: '(private)'
+            }
+            io.to(dmSocketId).emit('newMessage', sendData);
+            socket.emit('newMessage', sendData);
+        }
     })
 })
 

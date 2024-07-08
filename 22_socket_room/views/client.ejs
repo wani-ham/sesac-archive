@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Socket Room</title>
+    <title>Room Chat</title>
     <script src="/socket.io/socket.io.js"></script>
 
     <style>
@@ -33,19 +33,55 @@
             margin: 0;
         }
 
+        .my-chat {
+            display: flex;
+            justify-content: end;
+            padding: 2px 0px;
+        }
+
+        .my-chat p {
+            margin: 0;
+            padding: 10px;
+            background-color: yellow;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+
+        .other-chat {
+            display: flex;
+            justify-content: start;
+            padding: 2px 0px;
+        }
+
+        .other-chat p {
+            margin: 0px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+
+        .secret-chat p {
+            background-color: pink;
+        }
     </style>
 </head>
 <body>
-    <h1>Chat room</h1>
-    <div id="main">
+    <h1>Chat Room</h1>
+    <!-- 채팅방 설정 -->
+     <div id="main">
         <form id="room">
-            <input type="text" id="roomName" placeholder="Create Room">
-            <input type="text" id="userName" placeholder="Enter Username">
+            <input type="text" id="roomName" placeholder="Create Chat Room">
+            <input type="text" id="userName" placeholder="Enter User Name">
             <button>Create</button>
         </form>
-    </div>
+        <!-- [5] 채팅방 목록 리스트 -->
+         <h3>Chat Room List</h3>
+         <ul id="lists"></ul>
+     </div>
 
-    <div id="body" hidden>
+     <!-- 채팅창 화면 -->
+      <div id="body" hidden>
         <div id="message">
             <div id="notice"></div>
         </div>
@@ -55,23 +91,32 @@
             <input type="text" id="chatMessage" placeholder="Enter Message">
             <button>Enter</button>
          </form>
-    </div>
+      </div>
 
-    <script>
+      <script>
+        // [1] 변수 정의
         const socket = io();
+
         const roomForm = document.querySelector('#room');
         const chatForm = document.querySelector('#chat');
         const notice = document.querySelector('#notice');
         const message = document.querySelector('#message');
-        let myName = '';
+        let myName = ''; // 내 닉네임 (빈 값)정의
 
+        // -----------------------
+        // 폼 이벤트 (서버에게 요청)
+        // -----------------------
+
+        // [2] 채팅방 생성!
         roomForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const roomName = roomForm.querySelector('#roomName').value;
-            const userName = roomForm.querySelector('#userName').value;
+            console.log(e);
+            e.preventDefault(); // 폼 제출 시 페이지 새로고침 방지.
+            const roomName = roomForm.querySelector('#roomName').value; // 채팅방 제목
+            const userName = roomForm.querySelector('#userName').value; // 유저 이름
 
             if (roomName === '' || userName === '') {
-                alert('Enter Name of the room and user');
+                alert('방 제목과 닉네임을 입력하세요.');
+                return;
             }
 
             socket.emit('create', {roomName, userName});
@@ -80,31 +125,80 @@
             main.hidden = true;
             body.hidden = false;
 
+            // 전역변수에 입력한 닉네임 저장.
             myName = userName;
         })
 
-        socket.on('connect', () => {
-            console.log(`socket connected...id: ${socket.id}`);
+        // [6] 메세지 전송
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const chatMessage = chatForm.querySelector('#chatMessage');
+            const user = chatForm.querySelector('#userList');
+            socket.emit('sentMessage', { message: chatMessage.value, user: myName, select: user.value})
+            chatMessage.value = '';
         })
 
+        // ------------------------
+        // 소켓 이벤트
+        // ------------------------
+
+        // [3] 공지 알림 (본인 제외)
         socket.on('notice', (res) => {
             const div = document.createElement('div');
             const p = document.createElement('p');
+            console.log('notice >>> ', res);
             p.textContent = res;
             div.appendChild(p);
             notice.appendChild(div);
         })
-        
+
+        // [4] 유저 리스트 갱신
         socket.on('userList', (res) => {
+            console.log("클라이언트 측의 userList :: ", res);
             const lists = document.querySelector('#userList');
-            let options = `<option>All</option>`;
+            let options = `<option value='all'>전체</option>`;
             for (let i of res) {
-                options += `<option value="${i.key}">${i.userName}</option>`
+                options += `<option value='${i.key}'>${i.userName}</option>`
             }
             lists.innerHTML = options;
         })
 
-        
-    </script>
+        // [5] 개설된 채팅방 리스트
+        socket.on('connect', () => {
+            socket.on('roomList', (res) => {
+                console.log("res >>>", res);
+                const lists = document.querySelector('#lists');
+                lists.innerHTML = ''; // 리스트 초기화
+
+                res.forEach((room) => {
+                    const li = document.createElement('li');
+                    li.textContent = `${room}`;
+                    lists.appendChild(li);
+                })
+            })
+        })
+
+        // [6] 메세지
+        socket.on('newMessage', (res) => {
+            const div = document.createElement('div');
+            const p = document.createElement('p');
+
+            if (myName === res.user) {
+                // 내가 입력한 텍스트
+                div.classList.add('my-chat');
+            } else {
+                // 상대방이 입력한 텍스트
+                div.classList.add('other-chat');
+            }
+
+            if(res.dm) {
+                div.classList.add('secret-chat');
+            }
+
+            p.textContent = `${res.user} : ${res.message}`;
+            div.appendChild(p);
+            message.appendChild(div);
+        })
+      </script>
 </body>
 </html>

@@ -26,3 +26,4 @@ console.log(`${isMatch ? 'matches' : 'does not matches'}`);
 
 const isMatch2 = comparePw('12344', hashedPw);
 console.log(`${isMatch2 ? 'matches' : 'does not matches'}`);
+                

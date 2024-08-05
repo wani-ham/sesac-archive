@@ -19,6 +19,9 @@ const Button = (props) => {
 Button.defaultProps = {
     children: '네이버',
     link: 'https://www.naver.com'
+
+
+    
 }
 
 Button.propTypes = {

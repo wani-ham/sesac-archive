@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './styles/cssModule.module.css';
+import styles from './styles/cssModules.module.css';
 
 // CSS module
 // 클래스명 중복 방지

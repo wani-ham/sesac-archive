@@ -1,0 +1,40 @@
+@import './variables';
+@import './utils';
+
+
+
+.box-wrap {
+    position: relative;
+    .box {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        position: absolute;
+        
+
+        &.box1 {
+            @include square($bg-color-1, 50px);
+            @include animate(squareTrans1, 2s, linear, infinite);
+
+        }
+        &.box2 {
+            @include square($bg-color-2, 150px);
+            @include animate(squareTrans2, 2s, linear, infinite);
+
+        }
+        &.box3 {
+            @include square($bg-color-3, 250px);
+            @include animate(squareTrans3, 2s, linear, infinite);
+
+        }
+        
+    }
+}
+
+@include square-animation(squareTrans1, 50px);
+@include square-animation(squareTrans2, 150px);
+@include square-animation(squareTrans3, 250px);
+
+
+
+

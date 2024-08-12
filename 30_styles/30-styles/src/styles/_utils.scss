@@ -2,3 +2,49 @@
     width: $size;
     height: $size;
 }
+
+@mixin animate($animation, $duration, $method, $times) {
+    animation-name: $animation;
+    animation-duration: $duration;
+    animation-timing-function: $method;
+    animation-iteration-count: $times;
+}
+
+// @mixin sqaureAnim($animationName, $transVal) {
+//     @keyframes $animationName {
+//         0% {
+//           transform: translate(0px, 0px);
+//         }
+//         25% {
+//           transform: translate(0px, $transVal);
+//         }
+//     }
+// }
+
+@mixin square($bg-color, $starting-point) {
+    background-color: $bg-color;
+    top: $starting-point;
+}
+
+@mixin square-animation($animation-name, $transVal) {
+    @keyframes #{$animation-name} {
+                0% {
+                  transform: translate(0px, 0px);
+                }
+                25% {
+                  transform: translate(0px, $transVal);
+                }
+                50% {
+                    transform: translate($transVal, $transVal);
+                }
+                75% {
+                    transform: translate($transVal, 0px);
+                }
+                100% {
+                    transform: translate(0px, 0px);
+                }
+            }
+}
+
+
+
